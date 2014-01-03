@@ -1,0 +1,6 @@
+function CI_list = mapUsersToCI(users)
+
+CIlis
+
+for i = 1:length(users)
+    

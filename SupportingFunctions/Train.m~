@@ -1,0 +1,34 @@
+classdef Train < handle
+    
+    properties
+        number = 0;
+        direction = 'NB';
+        stations = [];
+        times = [];
+    end
+    
+    methods
+        function t = Train(direction, number)
+           t.direction = direction;
+           t.number = str2double(number);
+        end
+        
+        function sched_time = get_station_time(train)
+            
+        end
+        
+        function output_time = stops_here(varargin)
+            
+            train = varargin{1};
+            station_name = 
+            
+            a = strcmp(station_name, train.stations);
+            output_time = train.times(a == 1);
+            
+            if 
+
+        end
+        
+    end
+end
+        

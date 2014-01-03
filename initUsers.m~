@@ -1,0 +1,9 @@
+function 
+
+load UserDB.mat
+
+for i = 1:length(u)
+    u(i).notificationSetting = [1 1];
+    u(i).updateTrains;
+%     u(i).dispUser;
+end

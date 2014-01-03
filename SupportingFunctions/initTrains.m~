@@ -1,0 +1,52 @@
+function [NBtrains, SBtrains] = initTrains(Stations)
+
+    n_stations = length(Stations);
+
+    [nb_trains, nb_sched] = get_trains('NB',n_stations);
+    [sb_trains, sb_sched] = get_trains('SB',n_stations);
+    
+    for i = 1:size(nb_trains,1)
+        NBtrains(i,1) = Train('NB',nb_trains(i,:));
+        NBtrains(i,1) = get_stops(NBttrains(i,1), nb_sched(i,:), Stations);
+    end
+    
+    for i = 1:size(sb_trains,1)
+        SBtrains(i,1) = Train('SB',nb_trains(i,:));
+    end
+    
+end
+
+function [out_trains, out_sched] = get_trains(direction, n_stations)
+
+    switch(direction)
+        case 'NB'
+            fid = fopen('CaltrianNBSchedule.bin','r');
+        otherwise
+            fid = fopen('CaltrianSBSchedule.bin','r');
+    end
+
+    fseek(fid,0,1); n_bytes = ftell(fid);  fseek(fid,0,-1);
+    n_stops = (n_bytes/8)/(n_stations+1);
+    [trains,count] = fread(fid,[n_stops,n_stations+1],'double');
+    fclose(fid);
+
+    out_sched = trains(:,2:end);
+    out_trains = num2str(trains(:,1));
+end
+
+function [Train_in] = get_stops(Train_in, sched, Stations)
+
+    times = [];
+    stations = {};
+    
+    for i = 1:size(sched,2)
+        if ~isnan(sched(1,i))
+            times = [times; sched(1,i)];
+            stations = [stations
+        end
+    end
+    
+    Train_in.times = times;
+    Train_in.stations = Stations
+    
+end
